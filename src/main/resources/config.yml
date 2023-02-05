@@ -1,0 +1,32 @@
+title: "&f[&c&l生化危机&f]"
+
+# 是否显示伤害浮空字
+display-damage: true
+
+scoreboard-title: "&c&l生化危机"
+
+command-player: "zp"
+
+command-admin: "zpa"
+
+command-msg: "zps"
+
+
+
+# 是否保存玩家背包
+save-playerInventory:  true
+
+# 递增经验
+# 每下一级的经验为 up-exp * 等级
+up-exp: 500
+
+
+game-logo: "author: sobadfish "
+
+join-menu:
+  "Room#1":
+    buttonImg:
+      type: "path"
+      path: "textures/ui/icon_recipe_item"
+    rooms:
+      - "游戏房间"

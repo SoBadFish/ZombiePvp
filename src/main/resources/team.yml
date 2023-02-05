@@ -1,0 +1,52 @@
+team:
+  - name: "僵尸"
+    nameColor: "&c&l"
+    blockWoolColor: "35:14"
+    canPvp: false
+    # 是否将其他队伍的玩家更改为自身阵营
+    canInfection: true
+    # 倒计时结束时胜利的权重
+    victoryWeight: 0
+    openChest: false
+    defaultHealth: 40
+    deathPoint: 1
+    spawnMessage: "你现在是僵尸,杀死你看见的所有人类!"
+    teamEffect:
+      - "5:2"
+      - "1:2"
+      - "16"
+      - "1:1"
+      - "8:1"
+      - "10"
+    # 自动分配
+    maxPlayer: -1
+    # 队伍每个玩家复活次数
+    teamSpawnCount: -1
+    # 背包内物品
+    inventory:
+      armor: []
+      inventory:
+        - "345:0:20"
+    rgb:
+      r: 255
+      g: 0
+      b: 0
+  - name: "人类"
+    nameColor: "&a&l"
+    blockWoolColor: "35:11"
+    canPvp: false
+    deathPoint: 10
+    canInfection: false
+    victoryWeight: 1
+    spawnMessage: "你现在是人类，杀死所有的丧尸，并生存到最后"
+    inventory:
+      armor:
+        - "298:0"
+        - "299:0"
+        - "300:0"
+        - "301:0"
+      inventory: []
+    rgb:
+      r: 0
+      g: 0
+      b: 255

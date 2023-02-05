@@ -1,0 +1,15 @@
+name: ZombiePvp
+main: org.sobadfish.zombiepvp.ZombiePvpMain
+version: 1.0.0
+api:
+  - 1.0.11
+  - 3.0.0
+author: sobadfish
+load: POSTWORLD
+description: "生化危机小游戏"
+
+softdepend:
+  - ScoreboardPlugin
+
+loadbefore:
+  - ScoreboardPlugin

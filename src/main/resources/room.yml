@@ -1,0 +1,92 @@
+# 游戏地图
+world: ""
+# 游戏时长
+gameTime: 300
+# 等待大厅，玩家低于出生点x格后拉回出生点
+callbackY: 17
+# 玩家复活时间 若设置-1则玩家无法复活
+reSpawnTime: 0
+
+zombieCount: 2
+
+# 在允许复活的时候玩家复活次数
+reSpawnCount: 0
+
+# 死亡是否掉落物品
+deathDrop: true
+# 是否允许玩家旁观
+hasWatch: true
+# 等待大厅事件
+waitTime: 120
+#游戏内等待 当游戏开始后会有一段时间的等待
+gameInWait: 10
+
+# 是否启用饥饿值掉落
+enable-food: true
+
+# 满人时等待时长
+max-player-waitTime: 20
+
+# 房间最低玩家数量
+minPlayerSize: 4
+
+# 房间最高玩家数量
+maxPlayerSize: 16
+
+# 队伍出生点
+teamSpawn: {}
+
+# 等待大厅坐标
+waitPosition: ""
+
+# 禁止执行的指令
+ban-command: []
+
+# 玩家离开房间后执行的指令
+QuitRoom: []
+
+# 房间结束后玩家是否自动匹配下一个游戏房间
+AutomaticNextRound: true
+
+# 队伍/玩家取得胜利时执行的指令
+victoryCmd: []
+
+# 队伍/玩家失败时执行的指令
+defeatCmd: []
+
+# 玩家开启地图内箱子是否随机刷新物品
+
+roundChest: true
+
+# 是否允许箱子重置
+chest-can-reset: true
+
+# 箱子重置时间(秒)
+chest-reset-time: 120
+
+
+
+# 禁止破坏的方块
+# 当禁止破坏的方块大于0时，全地图可破坏
+ban-break: []
+
+# 当可破坏的方法数大于0时，地图禁止破坏
+can-break: []
+
+# 房间内浮空字的坐标
+floatSpawnPos: []
+# 弓箭可破坏的方块
+
+arrow-break:
+  - "35"
+
+# 房间开始游戏时，给玩家发送的消息
+roomStartMessage:
+  - "&a■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"
+  - "&c&l生化危机"
+  - "&e"
+  - "&e丧尸拥有无限复活的生命，并且体能大幅度上升"
+  - "&e，而人类只有一条命，努力生存下去吧"
+  - "&a■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"
+
+

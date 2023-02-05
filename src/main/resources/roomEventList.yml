@@ -1,0 +1,14 @@
+# 整局游戏中的事件
+# 跟 events 列表联动
+# 这里的事件不直接参与游戏内 但是会保存在游戏内
+# 通过自定义事件调用
+# value 数值在 time 类型中为tick时间 20 tick 为 1 秒
+# eventTime 为事件倒计时 单位为秒
+# 案例
+# - type: "effect"
+#   eventTime: 30
+#   display: "一个药水效果"
+#   value: "药水id:等级:时间"
+eventLists: []
+
+
