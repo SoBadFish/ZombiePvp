@@ -369,6 +369,7 @@ public class GameRoom {
         int t =  (int) Math.ceil(playerInfos.size() / (double)getRoomConfig().getTeamConfigs().size());
         PlayerInfo listener;
         LinkedList<PlayerInfo> noTeam = getNoTeamPlayers();
+        Collections.shuffle(noTeam);
         // TODO 检测是否一个队伍里有太多的人 拆掉多余的人
         for (TeamInfo manager: teamInfos){
             if(manager.getTeamConfig().getTeamConfig().maxPlayer > 0){
