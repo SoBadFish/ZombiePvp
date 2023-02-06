@@ -1,6 +1,7 @@
 package org.sobadfish.zombiepvp.event;
 
 
+import cn.nukkit.event.Cancellable;
 import cn.nukkit.plugin.Plugin;
 import org.sobadfish.zombiepvp.room.GameRoom;
 
@@ -9,7 +10,7 @@ import org.sobadfish.zombiepvp.room.GameRoom;
  * @author SoBadFish
  * 2022/1/15
  */
-public class GameRoomStartEvent extends GameRoomEvent {
+public class GameRoomStartEvent extends GameRoomEvent implements Cancellable {
 
     public GameRoomStartEvent(GameRoom room, Plugin plugin) {
         super(room, plugin);

@@ -72,6 +72,7 @@ public class TotalManager {
         RoomEventManager.register("effect", EffectEvent.class);
         RoomEventManager.register("command", CommandEvent.class);
         RoomEventManager.register("chest_reset", ChestResetEvent.class);
+        //注册新的药水效果
         ThreadManager.init();
     }
 

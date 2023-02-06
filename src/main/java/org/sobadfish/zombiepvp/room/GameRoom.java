@@ -718,7 +718,7 @@ public class GameRoom {
     }
 
     private void onStart() {
-        hasStart = true;
+
         eventControl.run();
         if(loadTime == -1 && teamAll){
             //TODO 房间首次重置
@@ -751,9 +751,20 @@ public class GameRoom {
 
             loadTime = getRoomConfig().time;
             worldInfo = new WorldInfo(this,getRoomConfig().worldInfo);
-            GameRoomStartEvent event = new GameRoomStartEvent(this,TotalManager.getPlugin());
-            Server.getInstance().getPluginManager().callEvent(event);
-            displayGameStartMsg();
+            if(!hasStart) {
+                GameRoomStartEvent event = new GameRoomStartEvent(this, TotalManager.getPlugin());
+                Server.getInstance().getPluginManager().callEvent(event);
+                if(!event.isCancelled()){
+                    displayGameStartMsg();
+                    hasStart = true;
+                }else{
+                    onDisable();
+                }
+
+            }
+            for (TeamInfo teamInfo : teamInfos) {
+                teamInfo.onUpdate();
+            }
 
         }
         //TODO 可以在这里实现胜利的条件
