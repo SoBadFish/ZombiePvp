@@ -369,6 +369,7 @@ public class GameRoom {
         int t =  (int) Math.ceil(playerInfos.size() / (double)getRoomConfig().getTeamConfigs().size());
         PlayerInfo listener;
         LinkedList<PlayerInfo> noTeam = getNoTeamPlayers();
+        //打乱，，这样就可以随机分配了
         Collections.shuffle(noTeam);
         // TODO 检测是否一个队伍里有太多的人 拆掉多余的人
         for (TeamInfo manager: teamInfos){
@@ -391,10 +392,10 @@ public class GameRoom {
         }
         int w = 0;
         while(noTeam.size() > 0){
-          if(w > teamInfos.size()){
-              //TODO 防止服主不会设置导致的死循环
-              break;
-          }
+            if(w > playerInfos.size()){
+                //TODO 防止服主不会设置导致的死循环
+                break;
+            }
             for (TeamInfo manager: teamInfos){
                 int s = manager.getTeamPlayers().size();
                 if(s == 0
@@ -435,7 +436,6 @@ public class GameRoom {
         }
         return true;
     }
-
 
     public LinkedList<PlayerInfo> getNoTeamPlayers(){
         LinkedList<PlayerInfo> noTeam = new LinkedList<>();
