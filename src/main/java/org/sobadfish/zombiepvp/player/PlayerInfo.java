@@ -843,62 +843,58 @@ public class PlayerInfo {
             ((Player) player).removeAllWindows();
             ((Player) player).getUIInventory().clearAll();
         }
+
         PlayerGameDeathEvent event1 = new PlayerGameDeathEvent(this,getGameRoom(),TotalManager.getPlugin());
         Server.getInstance().getPluginManager().callEvent(event1);
-
-
         player.removeAllEffects();
         if(getGameRoom().getWorldInfo().getConfig().getGameWorld() == null){
             cancel();
             return;
         }
-        if(health == -1){
+        if(health > 0){
+            health--;
+            sendMessage(TotalManager.getLanguage().getLanguage("player-respawn-health-count","&a你剩余 &e[1] &a条生命",
+                    health+""));
             deathCanRespawn();
         }else {
-
-            if (health > 0) {
-                health--;
-                sendMessage(TotalManager.getLanguage().getLanguage("player-respawn-health-count", "&a你剩余 &e[1] &a条生命",
-                        health + ""));
-                deathCanRespawn();
-            } else {
-                if (gameRoom != null && gameRoom.roomConfig.reSpawnTime >= 0) {
-                    int roomReSpawnCount = gameRoom.getRoomConfig().reSpawnCount;
-                    if (roomReSpawnCount > 0) {
-                        if (reSpawnCount > 0 && reSpawnCount < roomReSpawnCount) {
-                            reSpawnCount++;
-                            sendMessage(TotalManager.getLanguage().getLanguage("player-respawn-count", "&e你还能复活 &a[1] &e次",
-                                    (roomReSpawnCount - reSpawnCount) + ""));
-                            deathCanRespawn();
-                        } else {
-                            finalDeath = true;
-
-                        }
-                    } else {
+            if (gameRoom != null && gameRoom.roomConfig.reSpawnTime >= 0) {
+                int roomReSpawnCount = gameRoom.getRoomConfig().reSpawnCount;
+                if (roomReSpawnCount > 0) {
+                    if (reSpawnCount >= 0 && reSpawnCount < roomReSpawnCount) {
+                        reSpawnCount++;
+                        sendMessage(TotalManager.getLanguage().getLanguage("player-respawn-count", "&e你还能复活 &a[1] &e次",
+                                (roomReSpawnCount - reSpawnCount) + ""));
                         deathCanRespawn();
+                    } else {
+                        finalDeath = true;
+
                     }
                 } else {
-                    finalDeath = true;
+                    if(roomReSpawnCount == -1) {
+                        deathCanRespawn();
+                    }else{
+                        finalDeath = true;
+                    }
                 }
+            } else {
+                finalDeath = true;
             }
         }
-
         if(getGameRoom().getWorldInfo().getConfig().getGameWorld() == null){
             cancel();
             return;
         }
         player.teleport(teamInfo.getSpawnLocation());
         addData(PlayerData.DataType.DEATH);
-
-
-        //死亡后是否掉落物品
-        if(gameRoom != null){
-            if(gameRoom.getRoomConfig().isDeathDrop()){
-                for(Item item: player.getInventory().getContents().values()){
-                    player.level.dropItem(player,item,new Vector3(0,0.5,0));
-                }
-            }
-        }
+//
+//        //死亡后是否掉落物品
+//        if(gameRoom != null){
+//            if(gameRoom.getRoomConfig().isDeathDrop()){
+//                for(Item item: player.getInventory().getContents().values()){
+//                    player.level.dropItem(player,item,new Vector3(0,0.5,0));
+//                }
+//            }
+//        }
         //玩家死亡后的信息
         echoPlayerDeathInfo(event);
         if(finalDeath) {
@@ -909,7 +905,21 @@ public class PlayerInfo {
                     damageByInfo.teamInfo.mjoin(this);
                     gameRoom.addSound(Sound.MOB_ZOMBIE_SAY);
                 }else{
-                    deathFinal();
+                    boolean isInfection = false;
+                    //TODO 意外死亡也变僵尸
+                    for(TeamInfo teamInfoConfig: getGameRoom().getTeamInfos()){
+                        if(teamInfoConfig.getTeamConfig().getTeamConfig().isCanInfection()){
+                            //TODO 被感染了
+                            damageByInfo.teamInfo.mjoin(this);
+                            gameRoom.addSound(Sound.MOB_ZOMBIE_SAY);
+                            isInfection = true;
+                            break;
+                        }
+                    }
+                    if(!isInfection){
+                        deathFinal();
+                    }
+//                    deathFinal();
                 }
             }
         }
