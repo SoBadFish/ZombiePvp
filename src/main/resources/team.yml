@@ -9,7 +9,8 @@ team:
     victoryWeight: 0
     openChest: false
     defaultHealth: 40
-    deathPoint: 1
+    deathPoint: 5
+    deathMoney: 100
     spawnMessage: "你现在是僵尸,杀死你看见的所有人类!"
     teamEffect:
       - "5:2"
@@ -20,6 +21,7 @@ team:
       - "10"
     # 自动分配
     maxPlayer: -1
+
     # 队伍每个玩家复活次数
     teamSpawnCount: -1
     # 背包内物品
@@ -47,6 +49,8 @@ team:
         - "301:0"
       inventory:
         - "267:0:1"
+        - "322:0:1"
+        - "364:0:16"
     rgb:
       r: 0
       g: 0

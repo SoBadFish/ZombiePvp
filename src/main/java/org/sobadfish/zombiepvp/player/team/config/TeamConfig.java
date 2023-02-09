@@ -51,6 +51,8 @@ public class TeamConfig {
 
     public int victoryWeight = 0;
 
+    public int defaultHealth = 20;
+
     public int teamSpawnCount = 0;
 
     public boolean openChest = true;
@@ -163,6 +165,13 @@ public class TeamConfig {
         return deathPoint;
     }
 
+    public void setDefaultHealth(int defaultHealth) {
+        this.defaultHealth = defaultHealth;
+    }
+
+    public int getDefaultHealth() {
+        return defaultHealth;
+    }
 
     public void setSpawnMessage(String spawnMessage) {
         this.spawnMessage = spawnMessage;
@@ -206,6 +215,9 @@ public class TeamConfig {
         }
         if(map.containsKey("deathPoint")){
             teamConfig.setDeathPoint(Integer.parseInt(map.get("deathPoint").toString()));
+        }
+        if(map.containsKey("defaultHealth")){
+            teamConfig.setDefaultHealth(Integer.parseInt(map.get("defaultHealth").toString()));
         }
         if(map.containsKey("maxPlayer")){
             teamConfig.setMaxPlayer(Integer.parseInt(map.get("maxPlayer").toString()));

@@ -324,6 +324,8 @@ public class RoomManager implements Listener {
         if(playerJoin.containsKey(player.getName())){
             player.setFoodEnabled(false);
             player.setGamemode(2);
+            player.setMaxHealth(20);
+            player.setHealth(20);
             String room = playerJoin.get(player.getName());
             if(hasGameRoom(room)) {
                 GameRoom room1 = getRoom(room);

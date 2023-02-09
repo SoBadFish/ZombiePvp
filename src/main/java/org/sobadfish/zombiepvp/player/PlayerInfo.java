@@ -459,8 +459,6 @@ public class PlayerInfo {
             ((Player) getPlayer()).setGamemode(0);
 
             ((Player) getPlayer()).setExperience(0,0);
-
-
         }
         //TODO 初始装备
         for (Map.Entry<Integer, Item> entry : armor.entrySet()) {
@@ -478,6 +476,15 @@ public class PlayerInfo {
 
             player.getInventory().setArmorItem(entry.getKey(), item);
         }
+        int dh = 20;
+        if(teamInfo != null){
+            dh = teamInfo.getTeamConfig().getTeamConfig().getDefaultHealth();
+            if(dh < 1){
+                dh = 20;
+            }
+        }
+        player.setMaxHealth(dh);
+        player.setHealth(player.getMaxHealth());
         for (Map.Entry<Integer, Item> entry : inventoryItem.entrySet()) {
             Item item = entry.getValue();
             player.getInventory().setItem(entry.getKey(), item);
@@ -524,6 +531,8 @@ public class PlayerInfo {
                 playerType = PlayerType.START;
             }
         }
+        //直接成为僵尸...
+
     }
 
     public void setMoveSpeed(float speed){
@@ -533,6 +542,8 @@ public class PlayerInfo {
     public void clear(){
         if(player instanceof Player){
             if(((Player) player).isOnline()){
+                player.setMaxHealth(20);
+                player.setHealth(20);
                 player.setNameTag(player.getName());
                 player.getInventory().clearAll();
                 player.setMovementSpeed(speed);
@@ -702,11 +713,14 @@ public class PlayerInfo {
 
     private boolean isSendkey = false;
 
+    private int reduceFoodTime;
+
     /**
      * 定时任务
      * */
     public void onUpdate(){
         //TODO 玩家进入房间后每秒就会调用这个方法
+        reduceFoodTime++;
         if(waitTime > 0){
             player.setImmobile(true);
             sendTip(TotalManager.getLanguage().getLanguage("player-wait","&e开始倒计时 &r[1] &a[2] s",
@@ -787,7 +801,14 @@ public class PlayerInfo {
             //TODO 游戏开始后 可以弄一些buff
             player.setNameTag(TextFormat.colorize('&',TotalManager.getLanguage().getLanguage("player-nametag-info","[1] [n]&c❤&7[2]",teamInfo.getTeamConfig().getNameColor()+player.getName(),
                     String.format("%.1f",player.getHealth()))));
-
+            //TODO 更容易饥饿...
+            if(reduceFoodTime >= 3){
+                if(player instanceof Player){
+                    if(((Player) player).isFoodEnabled() && ((Player) player).getFoodData().getLevel() > 0){
+                        ((Player) player).getFoodData().useHunger(2);
+                    }
+                }
+            }
 
         }else if(playerType == PlayerType.WAIT){
             if(getGameRoom().getRoomConfig().getWorldInfo().getWaitPosition().getY() - player.getY() > getGameRoom().getRoomConfig().callbackY){
