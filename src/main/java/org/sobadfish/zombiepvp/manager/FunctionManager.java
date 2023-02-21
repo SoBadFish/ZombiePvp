@@ -182,7 +182,7 @@ public class FunctionManager {
         Item item = Item.get(0);
         TagItemDataManager itemDataManager = TotalManager.getTagItemDataManager();
         if(itemDataManager.hasItem(sList[0])){
-             item = itemDataManager.getItem(sList[0]);
+            item = itemDataManager.getItem(sList[0]);
             int count = 1;
             if(sList.length > 1){
                 count = Integer.parseInt(sList[1]);
@@ -191,7 +191,11 @@ public class FunctionManager {
         }
 
         if(item.getId() == 0){
-            item = Item.get(Integer.parseInt(sList[0]));
+            try {
+                item = Item.get(Integer.parseInt(sList[0]));
+            }catch (Exception e){
+                item = Item.fromString(sList[0].replace(".",":"));
+            }
             if(sList.length > 1){
                 item.setDamage(Integer.parseInt(sList[1]));
                 if(sList.length > 2){
@@ -202,12 +206,6 @@ public class FunctionManager {
             }
         }
 
-//        if(value.length > 1){
-//            //自定义随机附魔格式
-//            //-1(代表无)~9 or -1,3,9 : 0 ~ 3 or 0,2,3
-//            String[] ench = value[1].split(":");
-//
-//        }
 
         return item;
 
