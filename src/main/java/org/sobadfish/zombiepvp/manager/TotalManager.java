@@ -14,6 +14,8 @@ import org.sobadfish.zombiepvp.room.event.defaults.ChestResetEvent;
 import org.sobadfish.zombiepvp.room.event.defaults.CommandEvent;
 import org.sobadfish.zombiepvp.room.event.defaults.CustomEvent;
 import org.sobadfish.zombiepvp.room.event.defaults.EffectEvent;
+import org.sobadfish.zombiepvp.variable.GameNpcVariable;
+import org.sobadfish.zombiepvp.variable.GameTipVariable;
 
 import java.io.File;
 
@@ -65,9 +67,10 @@ public class TotalManager {
         TotalManager.plugin = pluginBase;
         checkServer();
         loadConfig();
-        COMMAND_NAME = plugin.getConfig().getString("command-player","gd");
-        COMMAND_ADMIN_NAME = plugin.getConfig().getString("command-admin","gda");
-        COMMAND_MESSAGE_NAME = plugin.getConfig().getString("command-msg","gds");
+        loadVariable();
+        COMMAND_NAME = plugin.getConfig().getString("command-player","zp");
+        COMMAND_ADMIN_NAME = plugin.getConfig().getString("command-admin","zpa");
+        COMMAND_MESSAGE_NAME = plugin.getConfig().getString("command-msg","zps");
         RoomEventManager.register("custom", CustomEvent.class);
         RoomEventManager.register("effect", EffectEvent.class);
         RoomEventManager.register("command", CommandEvent.class);
@@ -80,6 +83,17 @@ public class TotalManager {
         language = new LanguageManager(plugin);
     }
 
+
+    private static void loadVariable() {
+        try{
+            Class.forName("com.smallaswater.npc.variable.BaseVariableV2");
+            GameNpcVariable.init();
+        }catch (Exception ignore){}
+        try{
+            Class.forName("tip.utils.variables.BaseVariable");
+            GameTipVariable.init();
+        }catch (Exception ignore){}
+    }
 
     private static RoomManager roomManager;
 

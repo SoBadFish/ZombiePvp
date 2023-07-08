@@ -36,6 +36,7 @@ import cn.nukkit.level.Sound;
 import cn.nukkit.utils.TextFormat;
 import org.sobadfish.zombiepvp.entity.DamageFloatTextEntity;
 import org.sobadfish.zombiepvp.entity.EntityTnt;
+import org.sobadfish.zombiepvp.event.ReloadWorldEvent;
 import org.sobadfish.zombiepvp.item.ItemIDSunName;
 import org.sobadfish.zombiepvp.item.button.RoomQuitItem;
 import org.sobadfish.zombiepvp.item.button.TeamChoseItem;
@@ -1093,6 +1094,24 @@ public class RoomManager implements Listener {
                 event.setCancelled();
             }
         }
+    }
+
+    @EventHandler
+    public void onWorldReloadEvent(ReloadWorldEvent event) {
+        GameRoomConfig config = event.getRoomConfig();
+        Server.getInstance().getScheduler().scheduleTask(TotalManager.getPlugin(), new Runnable() {
+            @Override
+            public void run() {
+                Server.getInstance().loadLevel(config.getWorldInfo().getLevel());
+                TotalManager.getRoomManager().getRooms().remove(config.getName());
+                RoomManager.LOCK_GAME.remove(config);
+                WorldResetManager.RESET_QUEUE.remove(config.name);
+                TotalManager.sendMessageToConsole("&r释放房间 " + config.name);
+                TotalManager.sendMessageToConsole("&r房间 " + config.name + " 已回收");
+
+            }
+        });
+
     }
 
 

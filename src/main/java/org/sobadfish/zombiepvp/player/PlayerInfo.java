@@ -866,7 +866,7 @@ public class PlayerInfo {
         }
 
         PlayerGameDeathEvent event1 = new PlayerGameDeathEvent(this,getGameRoom(),TotalManager.getPlugin());
-        Server.getInstance().getPluginManager().callEvent(event1);
+
         player.removeAllEffects();
         if(getGameRoom().getWorldInfo().getConfig().getGameWorld() == null){
             cancel();
@@ -907,15 +907,8 @@ public class PlayerInfo {
         }
         player.teleport(teamInfo.getSpawnLocation());
         addData(PlayerData.DataType.DEATH);
-//
-//        //死亡后是否掉落物品
-//        if(gameRoom != null){
-//            if(gameRoom.getRoomConfig().isDeathDrop()){
-//                for(Item item: player.getInventory().getContents().values()){
-//                    player.level.dropItem(player,item,new Vector3(0,0.5,0));
-//                }
-//            }
-//        }
+
+
         //玩家死亡后的信息
         echoPlayerDeathInfo(event);
         if(finalDeath) {
@@ -945,6 +938,7 @@ public class PlayerInfo {
             }
         }
 
+
         damageByInfo = null;
 
         player.getInventory().clearAll();
@@ -952,6 +946,7 @@ public class PlayerInfo {
         if(playerType == PlayerType.WATCH){
             getGameRoom().joinWatch(this,false);
         }
+
     }
 
     /**

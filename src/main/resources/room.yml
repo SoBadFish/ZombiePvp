@@ -7,8 +7,6 @@ callbackY: 17
 # 玩家复活时间 若设置-1则玩家无法复活
 reSpawnTime: 0
 
-zombieCount: 2
-
 # 在允许复活的时候玩家复活次数
 reSpawnCount: 0
 
